@@ -18,7 +18,9 @@ AActor* UShinobiFunctionLibrary::CloneActor(AActor* OriginalActor, UObject* Oute
     if (!World) return nullptr;
 
     FActorSpawnParameters SpawnParams;
-    SpawnParams.Template = OriginalActor;  // Use duplicated actor as a template
+    SpawnParams.Template = NewActor;  // Use duplicated actor as a template
+    if (GEngine)
+        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Cloned!"));
     NewActor = World->SpawnActor<AActor>(OriginalActor->GetClass(), OriginalActor->GetTransform(), SpawnParams);
 
     return NewActor;
